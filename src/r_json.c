@@ -152,6 +152,7 @@ int rjs_parse_string(rjs_parser_t *parser, const char *str){
 	rjs_stack_pushobject(parser, parser->start_object);
 
 	parser->state = RJS_SEARCH_OPEN_BRACKET;
+	parser->next_state = RJS_SEARCH_OPEN_BRACKET;
 	return rjs_parse_object(parser, str, &index);
 }
 

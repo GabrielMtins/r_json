@@ -7,7 +7,7 @@ static const char *parse_string =
 "{\n"
 "	\"x\":2.1,\n"
 "	\"y\":2.4\n"
-"]\n";
+"}\n";
 
 int main(void){
     size_t memory_size = 1024 * 1024 * 4; /* 4MB de memória */
