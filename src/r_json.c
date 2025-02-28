@@ -165,7 +165,7 @@ const rjs_object_t * rjs_get_main_object(rjs_parser_t *parser){
 	return parser->start_object;
 }
 
-rjs_key_t * rjs_get_key(const rjs_object_t *object, const char *name){
+const rjs_key_t * rjs_get_key(const rjs_object_t *object, const char *name){
 	rjs_key_t *key;
 
 	if(object->start_key == NULL)
@@ -180,7 +180,7 @@ rjs_key_t * rjs_get_key(const rjs_object_t *object, const char *name){
 	return NULL;
 }
 
-rjs_key_t * rjs_get_key_index(const rjs_object_t *object, rjs_size_t pos){
+const rjs_key_t * rjs_get_key_index(const rjs_object_t *object, rjs_size_t pos){
 	rjs_key_t *key;
 
 	if(object->start_key == NULL)
@@ -194,23 +194,23 @@ rjs_key_t * rjs_get_key_index(const rjs_object_t *object, rjs_size_t pos){
 	return key;
 }
 
-int rjs_istype(rjs_key_t *key, int type){
+int rjs_istype(const rjs_key_t *key, int type){
 	return key->value.type == type;
 }
 
-const rjs_object_t * rjs_get_vobj(rjs_key_t *key){
+const rjs_object_t * rjs_get_vobj(const rjs_key_t *key){
 	return key->value.data.obj;
 }
 
-const char * rjs_get_vstring(rjs_key_t *key){
+const char * rjs_get_vstring(const rjs_key_t *key){
 	return key->value.data.str;
 }
 
-double rjs_get_vnumber(rjs_key_t *key){
+double rjs_get_vnumber(const rjs_key_t *key){
 	return key->value.data.number;
 }
 
-int rjs_get_vbool(rjs_key_t *key){
+int rjs_get_vbool(const rjs_key_t *key){
 	return key->value.data.r_bool;
 }
 

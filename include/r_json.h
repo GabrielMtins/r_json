@@ -137,29 +137,29 @@ const rjs_object_t * rjs_get_main_object(rjs_parser_t *parser);
 /* Retorna a chave com um dado nome. Caso esse nome não seja encontrado,
  * retorna NULL.
  * A busca é linear, pois a lista utilizada é uma lista encadeada. */
-rjs_key_t * rjs_get_key(const rjs_object_t *object, const char *name);
+const rjs_key_t * rjs_get_key(const rjs_object_t *object, const char *name);
 
 /* Retorna a chave em uma dada posição. Útil para arrays.
  * Caso não haja uma chave naquela posição, retorna NULL. */
-rjs_key_t * rjs_get_key_index(const rjs_object_t *object, rjs_size_t pos);
+const rjs_key_t * rjs_get_key_index(const rjs_object_t *object, rjs_size_t pos);
 
 /* Retorna 1 se a chave é de um dado tipo, 0 caso contrário. */
-int rjs_istype(rjs_key_t *key, int type);
+int rjs_istype(const rjs_key_t *key, int type);
 
 /* Retorna o objeto armazenado em uma chave. Verifique previamente
  * qual o tipo da chave. */
-const rjs_object_t * rjs_get_vobj(rjs_key_t *key);
+const rjs_object_t * rjs_get_vobj(const rjs_key_t *key);
 
 /* Retorna a string armazenado em uma chave. Essa string não deve ser modificada,
  * por isso é uma const char *. Verifique previamente qual o tipo da chave. */
-const char * rjs_get_vstring(rjs_key_t *key);
+const char * rjs_get_vstring(const rjs_key_t *key);
 
 /* Retorna o número armazenado em uma chave. Verifique previamente qual o tipo
  * da chave. */
-double rjs_get_vnumber(rjs_key_t *key);
+double rjs_get_vnumber(const rjs_key_t *key);
 
 /* Retorna o valor booleano armazenado em uma chave. Verifique previamente qual
  * o tipo da chave. */
-int rjs_get_vbool(rjs_key_t *key);
+int rjs_get_vbool(const rjs_key_t *key);
 
 #endif

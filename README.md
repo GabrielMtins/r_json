@@ -44,43 +44,43 @@ static const char *parse_string =
 "}\n";
 
 int main(void){
-    size_t memory_size = 1024 * 1024 * 4; /* 4MB de memória */
-    /* Este exemplo usa malloc, mas pode-se utiliza uma array da stack,
-     * ou até mesmo outro alocador de memória do seu interesse. */
-    void *memory_block = malloc(memory_size);
-    rjs_parser_t parser;
+	size_t memory_size = 1024 * 1024 * 4; /* 4MB de memória */
+	/* Este exemplo usa malloc, mas pode-se utiliza uma array da stack,
+	 * ou até mesmo outro alocador de memória do seu interesse. */
+	void *memory_block = malloc(memory_size);
+	rjs_parser_t parser;
 
-    /* Cria um parser com a memória desejada. */
-    rjs_create_parser(&parser, memory_block, memory_size);
+	/* Cria um parser com a memória desejada. */
+	rjs_create_parser(&parser, memory_block, memory_size);
 
-    /* Lê a string adequadamente. */
-    if(rjs_parse_string(&parser, parse_string)){
-        rjs_key_t *key;
-        const rjs_object_t *obj;
+	/* Lê a string adequadamente. */
+	if(rjs_parse_string(&parser, parse_string)){
+		const rjs_key_t *key;
+		const rjs_object_t *obj;
 
-        /* Retorna o objeto principal. */
-        obj = rjs_get_main_object(&parser);
+		/* Retorna o objeto principal. */
+		obj = rjs_get_main_object(&parser);
 
-        /* Retorna a chave de nome desejado. */
-        key = rjs_get_key(obj, "x");
+		/* Retorna a chave de nome desejado. */
+		key = rjs_get_key(obj, "x");
 
-        /* Verifica o tipo da chave. */
-        if(rjs_istype(key, RJS_KEY_NUMBER))
-            printf("x: %f\n", rjs_get_vnumber(key)); /* Imprime utilizando a função de retornar o valor da chave. */
+		/* Verifica o tipo da chave. */
+		if(rjs_istype(key, RJS_KEY_NUMBER))
+			printf("x: %f\n", rjs_get_vnumber(key)); /* Imprime utilizando a função de retornar o valor da chave. */
 
-        key = rjs_get_key(obj, "y");
+		key = rjs_get_key(obj, "y");
 
-        if(rjs_istype(key, RJS_KEY_NUMBER))
-            printf("y: %f\n", rjs_get_vnumber(key));
-    }
-    else{
-        /* Caso haja erro, imprima o erro. */
-        printf("%s\n", rjs_get_error(&parser));
-    }
+		if(rjs_istype(key, RJS_KEY_NUMBER))
+			printf("y: %f\n", rjs_get_vnumber(key));
+	}
+	else{
+		/* Caso haja erro, imprima o erro. */
+		printf("%s\n", rjs_get_error(&parser));
+	}
 
-    free(memory_block);
+	free(memory_block);
 
-    return 0;
+	return 0;
 }
 ```
 

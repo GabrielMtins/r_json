@@ -17,7 +17,7 @@ int main(void){
 	rjs_create_parser(&parser, memory_block, memory_size);
 
 	if(rjs_parse_string(&parser, parse_string)){
-		rjs_key_t *key;
+		const rjs_key_t *key;
 		const rjs_object_t *obj;
 
 		obj = rjs_get_main_object(&parser);
