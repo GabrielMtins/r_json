@@ -45,7 +45,7 @@ static const char *parse_string =
 
 int main(void){
 	size_t memory_size = 1024 * 1024 * 4; /* 4MB de memória */
-	/* Este exemplo usa malloc, mas pode-se utiliza uma array da stack,
+	/* Este exemplo usa malloc, mas pode-se utilizar uma array da stack,
 	 * ou até mesmo outro alocador de memória do seu interesse. */
 	void *memory_block = malloc(memory_size);
 	rjs_parser_t parser;
@@ -95,7 +95,7 @@ da biblioteca é apenas fornecer um leitor de arquivos json, os dados armazenado
 estão em listas encadeadas. Por isso, acessar dados em aplicações de tempo real
 diretamente da r\_json é uma desvantagem, já que a complexidade de busca será O(n).
 Idealmente, a biblioteca será utilizada apenas para decodificar a estrutura json,
-e os dados serão posteriormente armazenados em estruturas de dados adequado pelo
+e os dados serão posteriormente armazenados em estruturas de dados adequadas pelo
 usuário da biblioteca.
 
 Por ela não usar a biblioteca padrão, ela possui algumas limitações também. 
