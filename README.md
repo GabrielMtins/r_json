@@ -2,8 +2,9 @@
 
 ## O que é r\_json?
 
-r\_json é uma biblioteca feita em C89, sem dependências da biblioteca padrão
-e licenciada sober GPLv3(+later). O objetivo da biblioteca é ser uma biblioteca
+r\_json é uma biblioteca para leitura de arquivos json feita em C89,
+sem dependências da biblioteca padrão
+e licenciada sob GPLv3(+later). O objetivo da biblioteca é ser uma biblioteca
 simples e direta que possa ser utilizada junto com outros programas software
 livre.
 
@@ -16,9 +17,16 @@ de memória deverá ser liberado pelo próprio usuário.
 
 A vantagem disso é que a biblioteca poderá ser utilizada com ambientes que
 utilizam sua própria alocação de memória (como em motores de jogos, sistemas
-baixo nível), além de garantir a não fragmentação da memória. 
+baixo nível), além de garantir a não-fragmentação da memória. 
 
-## Como utilizar?
+## Documentação
+
+A r\_json é uma biblioteca pequena, com pouquíssimas funções. Todas elas estão
+descritas através de comentários no próprio header da biblioteca, com seus
+valores de retornos esperados e suas funções. Também está
+descrito membros das estruturas.
+
+## Exemplo de utilização
 
 Aqui está um exemplo de utilização da biblioteca:
 
@@ -73,3 +81,17 @@ int main(void){
 	return 0;
 }
 ```
+
+## Vantagens e Desvantagens
+
+A r\_json foi uma biblioteca pensada para ser simples e facilmente integrável
+em outros projetos. Por isso, ela utiliza o padrão C89 e também não tem dependências
+da biblioteca padrão.
+
+Porém, ela possui algumas desvantagens devido a sua simplicidade. Como o objetivo
+da biblioteca é apenas fornecer um leitor de arquivos json, os dados armazenados
+estão em listas encadeadas. Por isso, acessar dados em aplicações de tempo real
+diretamente da r\_json é uma desvantagem, já que a complexidade de busca será O(n).
+Idealmente, a biblioteca será utilizada apenas para decodificar a estrutura json,
+e os dados serão posteriormente armazenados em estruturas de dados adequado pelo
+usuário da biblioteca.
