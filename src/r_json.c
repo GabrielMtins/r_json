@@ -529,6 +529,8 @@ static int rjs_obj_pushkey_null(rjs_parser_t *parser, rjs_object_t *obj, const c
 }
 
 static int rjs_parse_object(rjs_parser_t *parser, const char *str, rjs_size_t *index){
+	rjs_size_t previous_break = 0;
+
 	while(str[(*index)] != '\0' && (rjs_stack_top(parser) != NULL)){
 
 		if(!rjs_parse_object_step(parser, str, index)){
@@ -545,8 +547,10 @@ static int rjs_parse_object(rjs_parser_t *parser, const char *str, rjs_size_t *i
 		}
 
 		parser->state = parser->next_state;
-		if(str[(*index)] == '\n')
+		if(str[(*index)] == '\n' && previous_break != *index){
+			previous_break = *index;
 			parser->line_count++;
+		}
 	}
 
 	if(rjs_stack_top(parser) != NULL){
