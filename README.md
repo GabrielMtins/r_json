@@ -78,7 +78,9 @@ int main(void){
         printf("%s\n", rjs_get_error(&parser));
     }
 
-	return 0;
+    free(memory_block);
+
+    return 0;
 }
 ```
 
