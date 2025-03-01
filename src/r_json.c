@@ -195,6 +195,8 @@ const rjs_key_t * rjs_get_key_index(const rjs_object_t *object, rjs_size_t pos){
 }
 
 int rjs_istype(const rjs_key_t *key, int type){
+	if(key == NULL) return 0;
+
 	return key->value.type == type;
 }
 
@@ -376,7 +378,8 @@ static const char *rjs_pushstring(rjs_parser_t *parser, const char *str){
 
 	while(str[size++] != '\0');
 
-	location = rjs_alloc(parser, size);
+	/* padding */
+	location = rjs_alloc(parser, size + 4 - (size % 4));
 
 	if(location == NULL)
 		return NULL;
