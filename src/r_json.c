@@ -42,7 +42,8 @@ enum rjs_states_e {
 
 enum rjs_strtod_states_e {
 	RJS_STRTOD_READ_NUMBER,
-	RJS_STRTOD_READ_FRACTION
+	RJS_STRTOD_READ_FRACTION,
+	RJS_STRTOD_READ_EXPONENT
 };
 
 /* Armazena uma mensagem de erro, com a indicação de qual linha o erro
@@ -58,6 +59,8 @@ static int rjs_isspace(char c);
 
 /* Retorna 1 se pode ser um número inicial (-, 0 .. 9), 0 caso contrário. */
 static int rjs_isstartnumber(char c);
+
+static double rjs_pow(double number, int exponent);
 
 /* Converte uma string para um número do tipo double. O número deve ser passado
  * por referência.
@@ -280,6 +283,43 @@ static int rjs_isstartnumber(char c){
 	return 0;
 }
 
+static double rjs_pow(double number, int exponent){
+	double result;
+
+	switch(exponent){
+		case 0:
+			return 1;
+			break;
+
+		case 1:
+			return number;
+			break;
+			
+		case -1:
+			return 1.0 / number;
+			break;
+	}
+
+	if(exponent < 0){
+		number = 1.0 / number;
+		exponent = -exponent;
+	}
+
+	result = 1.0;
+
+	while(exponent != 0){
+		if(exponent % 2 == 1){
+			result = result * number;
+		}
+
+		number *= number;
+		
+		exponent /= 2;
+	}
+
+	return result;
+}
+
 static int rjs_strtod(const char *str, double *ret_number){
 	rjs_size_t pos = 0;
 	int state = RJS_STRTOD_READ_NUMBER;
@@ -287,6 +327,8 @@ static int rjs_strtod(const char *str, double *ret_number){
 	double number = 0;
 	double fraction = 0;
 	double counter_fraction = 1;
+	int exponent = 1;
+	int is_negative_exponent = 1;
 
 	if(str[0] == '\0') return 0;
 	if(str[0] == '0' && (str[1] >= '0' && str[1] <= '9')) return 0;
@@ -305,6 +347,10 @@ static int rjs_strtod(const char *str, double *ret_number){
 				else if(str[pos] == '.'){
 					state = RJS_STRTOD_READ_FRACTION;
 				}
+				else if(str[pos] == 'e' || str[pos] == 'E'){
+					state = RJS_STRTOD_READ_EXPONENT;
+					exponent = 0;
+				}
 				else{
 					return 0;
 				}
@@ -315,6 +361,23 @@ static int rjs_strtod(const char *str, double *ret_number){
 				if(str[pos] >= '0' && str[pos] <= '9'){
 					fraction = (str[pos] - '0') + fraction * 10;
 					counter_fraction /= 10;
+				}
+				else if(str[pos] == 'e' || str[pos] == 'E'){
+					state = RJS_STRTOD_READ_EXPONENT;
+					exponent = 0;
+				}
+				else{
+					return 0;
+				}
+
+				break;
+
+			case RJS_STRTOD_READ_EXPONENT:
+				if(str[pos] == '-'){
+					is_negative_exponent = -1;
+				}
+				else if(str[pos] >= '0' && str[pos] <= '9'){
+					exponent = (str[pos] - '0') + exponent * 10;
 				}
 				else{
 					return 0;
@@ -327,6 +390,10 @@ static int rjs_strtod(const char *str, double *ret_number){
 	}
 
 	*ret_number = (number + counter_fraction * fraction) * (is_negative);
+
+	if(exponent != 1){
+		*ret_number = rjs_pow(*ret_number, exponent * is_negative_exponent);
+	}
 	
 	return 1;
 }

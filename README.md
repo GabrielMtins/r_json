@@ -98,9 +98,5 @@ Idealmente, a biblioteca será utilizada apenas para decodificar a estrutura jso
 e os dados serão posteriormente armazenados em estruturas de dados adequadas pelo
 usuário da biblioteca.
 
-Por ela não usar a biblioteca padrão, ela possui algumas limitações também. 
-Não há suporte para expoentes, como o padrão de json define, já que utilizar
-expoentes sem a math.h seria muito ineficiente.
-
 Também não há suporte para caracteres unicode do tipo u\xxxx, embora eu planeja
 implementar.
