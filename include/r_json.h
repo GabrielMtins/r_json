@@ -18,6 +18,10 @@
  *	  Copyright	Gabriel Martins (C) 2025
 */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #define RJS_MAX_STRING_SIZE 256
 #define RJS_OBJECT_STACK_SIZE 256
 
@@ -161,5 +165,9 @@ double rjs_get_vnumber(const rjs_key_t *key);
 /* Retorna o valor booleano armazenado em uma chave. Verifique previamente qual
  * o tipo da chave. */
 int rjs_get_vbool(const rjs_key_t *key);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif
