@@ -92,7 +92,7 @@ int main(void){
 A r\_json também tem um wrapper de C++. O objetivo é facilitar a utilização da biblioteca
 e para usuários de C++. Aqui está um exemplo de uso:
 
-```
+```cpp
 #include <iostream>
 #include <cstdint>
 #include "r_json_plus.hpp"
