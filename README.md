@@ -8,6 +8,9 @@ e licenciada sob GPLv3(+later). O objetivo da biblioteca é ser uma biblioteca
 simples e direta que possa ser utilizada junto com outros programas software
 livre.
 
+Também há um wrapper da biblioteca em C++11, para usuários que desejam a utilizar
+em C++. Ela tem algumas características mais fáceis de serem utilizadas.
+
 ## Características
 
 A r\_json manuseia sua própria memória. Para isso, o usuário terá que lhe fornecer
@@ -81,6 +84,41 @@ int main(void){
 	free(memory_block);
 
 	return 0;
+}
+```
+
+### Wrapper de C++
+
+A r\_json também tem um wrapper de C++. O objetivo é facilitar a utilização da biblioteca
+e para usuários de C++. Aqui está um exemplo de uso:
+
+```
+#include <iostream>
+#include <cstdint>
+#include "r_json_plus.hpp"
+
+static const char *parse_string =
+"{\n"
+"	\"x\":2.1,\n"
+"	\"y\":2.4,\n"
+"	\"z\":{\"k\":3.4}\n"
+"}\n";
+
+int main(void){
+	size_t memory_size = 1024 * 1024 * 4; /* 4MB de memória */
+	char *memory = new char[memory_size];
+	rjs::Parser parser(memory, memory_size);
+
+	if(parser.parse(parse_string)){
+		auto object = parser.getMainObject();
+
+		std::cout << object["x"].get<float>() << '\n';
+		std::cout << object["y"].get<float>() << '\n';
+		std::cout << object["z"].get<rjs::Object>()["k"].get<float>() << '\n';
+	}
+	else{
+		std::cout << parser.getError() << '\n';
+	}
 }
 ```
 
