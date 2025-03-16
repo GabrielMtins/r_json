@@ -30,11 +30,19 @@ namespace rjs {
 			const rjs_key_t *key;
 
 		public:
+			/* Retorna o valor da chave do tipo desejado.
+			 * Os tipos suportados são:
+			 * Tipos numéricos: int, float, double, unsigned int, unsigned long
+			 * Tipos de string: const char *
+			 * Tipos booleanos: bool
+			 * Tipos de objeto : rjs::Object
+			 * */
 			template <typename T>
 			T get(void){
 				return T();
 			}
 
+			/* Retorna true caso a chave seja válida. */
 			bool isValid(void);
 
 		friend class Object;
@@ -46,8 +54,11 @@ namespace rjs {
 			Object(const rjs_object_t *object);
 
 		public:
+			/* Retorna a chave na posição indicada pelo index. */
 			Key operator[](rjs_size_t index);
+			/* Retorna a chave dada pela string str. */
 			Key operator[](const char *str);
+			/* Retorna true caso o objeto seja válido. */
 			bool isValid(void);
 		
 		friend class Parser;
@@ -63,9 +74,13 @@ namespace rjs {
 			rjs_parser_t parser;
 
 		public:
+			/* Cria um parser com a memória e o tamanho dado. */
 			Parser(void *block, rjs_size_t size);
+			/* Retorna o objeto principal. */
 			Object getMainObject(void);
+			/* Decodifica uma string. Retorna true caso haja sucesso. */
 			bool parse(const char *str);
+			/* Retorna uma mensagem de erro. */
 			const char * getError();
 	};
 
