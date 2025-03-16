@@ -8,8 +8,9 @@ e licenciada sob GPLv3(+later). O objetivo da biblioteca é ser uma biblioteca
 simples e direta que possa ser utilizada junto com outros programas software
 livre.
 
-Também há um wrapper da biblioteca em C++11, para usuários que desejam a utilizar
-em C++. Ela tem algumas características mais fáceis de serem utilizadas.
+Também há um wrapper da biblioteca em C++98, para usuários que desejam a utilizar
+em C++. Ela utiliza algumas características de C++, como operator overloading, templates
+para facilitar a sua utilização.
 
 ## Características
 
@@ -90,7 +91,7 @@ int main(void){
 ### Wrapper de C++
 
 A r\_json também tem um wrapper de C++. O objetivo é facilitar a utilização da biblioteca
-e para usuários de C++. Aqui está um exemplo de uso:
+para usuários de C++. Aqui está um exemplo de uso:
 
 ```cpp
 #include <iostream>
@@ -119,6 +120,8 @@ int main(void){
 	else{
 		std::cout << parser.getError() << '\n';
 	}
+
+    delete[] memory;
 }
 ```
 
