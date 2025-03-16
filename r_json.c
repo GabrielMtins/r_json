@@ -669,6 +669,9 @@ static int rjs_parse_object_step(rjs_parser_t *parser, const char *str, rjs_size
 				parser->tmp_token_pos = 0;
 				parser->tmp_value_pos = -1;
 			}
+			else if(current == '}'){
+				parser->next_state = RJS_SEARCH_END;
+			}
 			else{
 				rjs_log(parser, "Expected quote.");
 				success = 0;
