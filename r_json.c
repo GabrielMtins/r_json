@@ -203,6 +203,10 @@ int rjs_istype(const rjs_key_t *key, int type){
 	return key->value.type == type;
 }
 
+int rjs_isvalid(void *key){
+	return key != NULL;
+}
+
 const rjs_object_t * rjs_get_vobj(const rjs_key_t *key){
 	return key->value.data.obj;
 }
@@ -446,7 +450,7 @@ static const char *rjs_pushstring(rjs_parser_t *parser, const char *str){
 	while(str[size++] != '\0');
 
 	/* padding */
-	location = rjs_alloc(parser, size + 4 - (size % 4));
+	location = (char *) rjs_alloc(parser, size + 4 - (size % 4));
 
 	if(location == NULL)
 		return NULL;
