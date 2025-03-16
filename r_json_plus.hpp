@@ -21,6 +21,9 @@
 #include "r_json.h"
 
 namespace rjs {
+	/* Para facilitar a escrita. */
+	typedef const char * string;
+
 	class Object;
 
 	class Key {
