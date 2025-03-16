@@ -26,8 +26,21 @@ namespace rjs {
 		this->key = key;
 	}
 
+	const char * Key::getName(void){
+		if(isValid())
+			return key->name;
+
+		return nullptr;
+	}
+
 	bool Key::isValid(void){
 		return rjs_isvalid((void *) key);
+	}
+
+	bool Key::next(void){
+		key = key->next;
+
+		return isValid();
 	}
 
 	template <>
@@ -123,6 +136,10 @@ namespace rjs {
 
 	Key Object::operator[](rjs_size_t index){
 		return Key(rjs_get_key_index(object, index));
+	}
+
+	Key Object::operator[](int index){
+		return Key(rjs_get_key_index(object, (rjs_size_t) index));
 	}
 
 	Key Object::operator[](const char *str){

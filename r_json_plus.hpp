@@ -42,8 +42,13 @@ namespace rjs {
 				return T();
 			}
 
+			const char * getName(void);
+
 			/* Retorna true caso a chave seja válida. */
 			bool isValid(void);
+
+			/* Avança para a próxima chave. Retorna true caso haja a próxima chave. */
+			bool next(void);
 
 		friend class Object;
 	};
@@ -56,6 +61,7 @@ namespace rjs {
 		public:
 			/* Retorna a chave na posição indicada pelo index. */
 			Key operator[](rjs_size_t index);
+			Key operator[](int index);
 			/* Retorna a chave dada pela string str. */
 			Key operator[](const char *str);
 			/* Retorna true caso o objeto seja válido. */
