@@ -46,6 +46,14 @@ enum rjs_strtod_states_e {
 	RJS_STRTOD_READ_EXPONENT
 };
 
+static const char *names[] = {
+	"string",
+	"object",
+	"number",
+	"boolean",
+	"null"
+};
+
 /* Armazena uma mensagem de erro, com a indicação de qual linha o erro
  * aconteceu. */
 static void rjs_log(rjs_parser_t *parser, const char *message);
@@ -221,6 +229,10 @@ double rjs_get_vnumber(const rjs_key_t *key){
 
 int rjs_get_vbool(const rjs_key_t *key){
 	return key->value.data.r_bool;
+}
+
+const char * rjs_get_typename(const rjs_key_t *key){
+	return names[key->value.type];
 }
 
 static void rjs_log(rjs_parser_t *parser, const char *message){

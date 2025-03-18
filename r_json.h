@@ -169,6 +169,9 @@ double rjs_get_vnumber(const rjs_key_t *key);
  * o tipo da chave. */
 int rjs_get_vbool(const rjs_key_t *key);
 
+/* Retorna uma string que indica o nome do tipo. */
+const char * rjs_get_typename(const rjs_key_t *key);
+
 #ifdef __cplusplus
 }
 #endif

@@ -45,13 +45,20 @@ namespace rjs {
 				return T();
 			}
 
-			const char * getName(void);
+			string getName(void);
 
 			/* Retorna true caso a chave seja válida. */
 			bool isValid(void);
 
 			/* Avança para a próxima chave. Retorna true caso haja a próxima chave. */
 			bool next(void);
+
+			/* Retorna o tipo segundo a enumeração da r_json.h */
+			int getType(void);
+
+			/* Retorna o nome do tipo. */
+			string getTypeName(void);
+
 
 		friend class Object;
 	};
@@ -69,6 +76,8 @@ namespace rjs {
 			Key operator[](const char *str);
 			/* Retorna true caso o objeto seja válido. */
 			bool isValid(void);
+			/* Retorna true caso o objeto seja uma array. */
+			bool isArray(void);
 		
 		friend class Parser;
 		friend class Key;
