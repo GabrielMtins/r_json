@@ -151,7 +151,7 @@ const rjs_key_t * rjs_get_key_index(const rjs_object_t *object, rjs_size_t pos);
 int rjs_istype(const rjs_key_t *key, int type);
 
 /* Retorna 1 se um object da biblioteca é válido, 0 caso contrário. */
-int rjs_isvalid(void *key);
+int rjs_isvalid(const void *key);
 
 /* Retorna o objeto armazenado em uma chave. Verifique previamente
  * qual o tipo da chave. */

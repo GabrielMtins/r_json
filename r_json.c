@@ -211,7 +211,7 @@ int rjs_istype(const rjs_key_t *key, int type){
 	return key->value.type == type;
 }
 
-int rjs_isvalid(void *key){
+int rjs_isvalid(const void *key){
 	return key != NULL;
 }
 
